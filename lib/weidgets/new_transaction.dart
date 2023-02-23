@@ -7,8 +7,34 @@ class NewTransaction extends StatefulWidget {
 }
 
 class _NewTransactionState extends State<NewTransaction> {
+  final titleController =TextEditingController();
+  final amountController =TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Card(
+      child: Column(
+        children: [
+          TextField(
+            decoration: const InputDecoration(labelText: 'Title'),
+
+            controller: titleController,
+
+          ),
+          const SizedBox(height: 10,),
+          TextField(
+            decoration: const InputDecoration(labelText: 'Amount'),
+
+            controller: amountController,
+
+          ),
+          ElevatedButton(onPressed: (){}, child: Text('Add Expense'))
+
+
+        ],
+
+
+
+    ));
   }
 }
