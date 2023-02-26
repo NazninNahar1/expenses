@@ -1,40 +1,57 @@
 import 'package:flutter/material.dart';
-class NewTransaction extends StatefulWidget {
-  const NewTransaction({Key? key}) : super(key: key);
 
-  @override
-  State<NewTransaction> createState() => _NewTransactionState();
-}
+class NewTransaction extends StatelessWidget {
+  final Function addTx;
+  final titleController = TextEditingController();
+  final amountController = TextEditingController();
 
-class _NewTransactionState extends State<NewTransaction> {
-  final titleController =TextEditingController();
-  final amountController =TextEditingController();
+  NewTransaction(this.addTx, {super.key});
+
+  void submitData() {
+    final enteredTitle = titleController.text;
+    final enteredAmount = double.parse(amountController.text);
+
+    if (enteredTitle.isEmpty || enteredAmount <= 0) {
+      return;
+    }
+
+    addTx(
+      enteredTitle,
+      enteredAmount,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Column(
-        children: [
-          TextField(
-            decoration: const InputDecoration(labelText: 'Title'),
-
-            controller: titleController,
-
-          ),
-          const SizedBox(height: 10,),
-          TextField(
-            decoration: const InputDecoration(labelText: 'Amount'),
-
-            controller: amountController,
-
-          ),
-          ElevatedButton(onPressed: (){}, child: Text('Add Expense'))
-
-
-        ],
-
-
-
-    ));
+      elevation: 5,
+      child: Container(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+            TextField(
+              decoration: InputDecoration(labelText: 'Title'),
+              controller: titleController,
+              onSubmitted: (_) => submitData(),
+              // onChanged: (val) {
+              //   titleInput = val;
+              // },
+            ),
+            TextField(
+              decoration: InputDecoration(labelText: 'Amount'),
+              controller: amountController,
+              keyboardType: TextInputType.number,
+              onSubmitted: (_) => submitData(),
+              // onChanged: (val) => amountInput = val,
+            ),
+            ElevatedButton(
+              onPressed: submitData,
+              child: Text('Add Transaction'),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -4,24 +4,12 @@ import '../model/transactions.dart';
 import 'package:intl/intl.dart';
 
 class TransactionList extends StatelessWidget {
-  const TransactionList({Key? key}) : super(key: key);
+  final List<Transaction> transactionList;
+  const TransactionList({Key? key, required this.transactionList}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final List<Transaction> transactionList = [
-      Transaction(
-        id: 't1',
-        title: 'New Shoe',
-        amount: 999.99,
-        date: DateTime.now(),
-      ),
-      Transaction(
-        id: 't2',
-        title: 'New Dress',
-        amount: 199.99,
-        date: DateTime.now(),
-      ),
-    ];
+
     return Container(
       height: MediaQuery.of(context).size.height * .6,
       child: ListView.builder(
@@ -58,11 +46,11 @@ class TransactionList extends StatelessWidget {
                         Text(transactionList[index].title,
                             style: const TextStyle(
                                 fontSize: 25,
-                                color: Colors.purple,
+                                color: Colors.black,
                                 fontWeight: FontWeight.bold)),
                         Text(DateFormat('y-MM-d').format(transactionList[index].date),
                             style:
-                                TextStyle(fontSize: 20, color: Colors.purple),)
+                                TextStyle(fontSize: 20, color: Colors.grey),)
                       ],
                     ),
                   )
